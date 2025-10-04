@@ -1,0 +1,88 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_banner": {
+      "type": "hero-banner",
+      "blocks": {},
+      "block_order": [],
+      "settings": {
+        "title": "Wear Your Crypto Identity",
+        "subtitle": "Custom streetwear for traders, holders & meme believers.",
+        "button_text": "Explore Collections",
+        "secondary_button_text": "Learn More",
+        "show_stats": true,
+        "stat_1_number": "10K+",
+        "stat_1_text": "Happy Customers",
+        "stat_2_number": "50+",
+        "stat_2_text": "Unique Designs",
+        "stat_3_number": "24/7",
+        "stat_3_text": "Support",
+        "show_scroll_indicator": true,
+        "show_floating_elements": true
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "blocks": {},
+      "block_order": [],
+      "settings": {
+        "title": "Featured Collection",
+        "subtitle": "Discover our most popular crypto-inspired designs",
+        "products_to_show": 8,
+        "products_per_row": "4",
+        "show_vendor": false,
+        "show_product_type": false,
+        "show_quick_add": true,
+        "show_view_all": true,
+        "view_all_text": "View All Products",
+        "show_collection_info": true
+      }
+    },
+    "meme_quote": {
+      "type": "meme-quote",
+      "blocks": {},
+      "block_order": [],
+      "settings": {
+        "quote_type": "crypto",
+        "show_quote_icon": true,
+        "show_attribution": true,
+        "show_reactions": true,
+        "button_text": "Shop Now",
+        "button_url": "/collections"
+      }
+    },
+    "newsletter_signup": {
+      "type": "newsletter-signup",
+      "blocks": {},
+      "block_order": [],
+      "settings": {
+        "title": "Stay in the Loop",
+        "subtitle": "Get exclusive access to new drops, crypto fashion tips, and special offers. Join the revolution!",
+        "email_placeholder": "Enter your email address",
+        "button_text": "Subscribe",
+        "success_message": "Thanks for subscribing! Welcome to the crypto fashion revolution! 🚀",
+        "show_privacy_notice": true,
+        "privacy_text": "We respect your privacy. Unsubscribe at any time. No spam, just pure crypto fashion content! 🚀",
+        "show_benefits": true,
+        "benefit_1": "Get exclusive access to limited edition drops",
+        "benefit_2": "Be the first to know about new releases",
+        "benefit_3": "Receive special discounts and crypto rewards",
+        "show_social_links": true
+      }
+    }
+  },
+  "order": [
+    "hero_banner",
+    "featured_collection",
+    "meme_quote",
+    "newsletter_signup"
+  ]
+}

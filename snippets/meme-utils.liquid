@@ -1,0 +1,124 @@
+{% comment %}
+  Meme Utils Snippet for MemeStyle Studio
+  Features: Crypto/meme-themed utility functions and helpers
+{% endcomment %}
+
+{% comment %} 
+  Get random crypto quote
+  Usage: {% assign quote = crypto_quotes | sample %}
+{% endcomment %}
+{% assign crypto_quotes = 'Buy the dip. Wear the drip.,HODL strong, dress strong.,To the moon and back, in style.,Diamond hands need diamond threads.,When life gives you FUD, make fashion.,This is the way... to dress.,WAGMI - We All Gonna Make It (in style),The future is decentralized, the drip is centralized.,Not financial advice, but fashion advice.,Keep calm and HODL on... with style.,Mooning in comfort since 2009.,Crypto winter? More like fashion season.,When in doubt, zoom out... your outfit.,The only thing more volatile than crypto is my style.,Bull market or bear market, drip market is always up.,Smart contracts, smarter outfits.,DeFi your wardrobe, DeFi your style.,The blockchain is immutable, but your style is mutable.,Gas fees are high, but your drip is priceless.,Yield farming in the metaverse, drip farming in real life.,NFTs are cool, but drip is cooler.,Stake your claim to style.,Liquidity pools are deep, but your style runs deeper.,The merge is complete, now merge with style.,Ethereum 2.0, but your drip is already 3.0.,Layer 2 solutions for layer 2 fashion.,Cross-chain compatibility, cross-style versatility.,The DAO of fashion is decentralized.,Governance tokens for style governance.,Proof of stake, proof of drip.,Consensus mechanism: unanimous style approval.,Validator nodes validating your style choices.,Slashing conditions: no drip allowed.,Finality is guaranteed, style is eternal.,Block rewards: drip rewards.,Mining rewards: fashion rewards.,Hash rate of style is off the charts.,Difficulty adjustment: always adjusting to the latest trends.,Network congestion: style congestion.,Fork in the road? Fork in the style.,Hard fork, soft style.,Upgrade your wardrobe like you upgrade your node.,Sync your style with the network.,Peer-to-peer fashion recommendations.,Distributed ledger of style transactions.,Immutable style records.,Cryptographic proof of good taste.,Digital signatures of style approval.,Public key fashion, private key comfort.,Encryption: keeping your style secure.,Decryption: revealing your true style.,Hash functions: hashing out your look.,Merkle trees: organizing your wardrobe.,Bloom filters: filtering out bad fashion choices.,Consensus algorithms: consensus on your style.,Byzantine fault tolerance: fault-tolerant fashion.,CAP theorem: consistent, available, partitioned style.,ACID properties: atomic, consistent, isolated, durable drip.,Eventual consistency: eventually consistent style.,Strong consistency: strongly consistent fashion.,Weak consistency: weakly consistent but still stylish.,Linearizability: linearizable style choices.,Sequential consistency: sequentially consistent wardrobe.,Causal consistency: causally consistent fashion sense.,Monotonic reads: monotonically increasing style.,Monotonic writes: monotonically improving fashion.,Read your writes: read your style choices.,Write follows read: write follows your fashion sense.' | split: ',' %}
+
+{% comment %} 
+  Get random meme quote
+  Usage: {% assign meme = meme_quotes | sample %}
+{% endcomment %}
+{% assign meme_quotes = 'This is fine.,Distracted boyfriend meme but with fashion.,Drake pointing at bad fashion vs good fashion.,Woman yelling at cat but the cat is your old wardrobe.,Two buttons meme: buy more crypto vs buy more clothes.,Expanding brain meme: basic clothes, branded clothes, crypto-themed clothes, custom crypto clothes.,Stonks but for your style.,Change my mind: crypto fashion is the best fashion.,Big brain time: investing in both crypto and drip.,Galaxy brain: wearing crypto fashion while trading crypto.,This meme is sponsored by our drip.,When you realize fashion and crypto are both about confidence.,Template: insert your crypto fashion here.,NPC meme but you are the NPC wearing basic clothes.,Wojak crying because he sold his crypto-themed clothes too early.,Chad meme but Chad is wearing our collection.,Virgin basic fashion vs Chad crypto fashion.,Pepe approves of your fashion choices.,Doge is impressed by your drip.,This is the way to dress.,I have spoken about fashion.,Baby Yoda approves of your style.,Anime girl pointing at crypto fashion.,Disaster girl but the house is on fire because of your drip.,Hide the pain Harold but the pain is from not having crypto fashion.,Success kid but the success is from buying crypto fashion.,Bad luck Brian but the bad luck is wearing basic clothes.,Good guy Greg but Greg is wearing crypto fashion.,Scumbag Steve but Steve is judging your fashion choices.,Socially awesome awkward penguin but the penguin is wearing crypto fashion.,First world problems but the problem is too much crypto fashion to choose from.,Ancient aliens but the aliens are here for our crypto fashion.,Keep calm and carry on but carry on with crypto fashion.,Y U NO wear crypto fashion?,One does not simply wear basic clothes.,Winter is coming but your drip is staying.,You know nothing Jon Snow about crypto fashion.,Not today fashion police.,What is dead may never die but may wear crypto fashion.,The night is dark and full of terrors but your style is bright.,Valar morghulis but valar dripulis.,A Lannister always pays his debts with crypto fashion.,The North remembers good fashion.,The King in the North wears crypto fashion.,The Mother of Dragons wears crypto fashion.,The Unsullied wear crypto fashion.,The Dothraki wear crypto fashion.,The Night\'s Watch wears crypto fashion.,The Brotherhood without Banners wears crypto fashion.,The Faceless Men wear crypto fashion.,The Iron Bank invests in crypto fashion.,The Citadel studies crypto fashion.,The Wall protects against bad fashion.,Winterfell is warm with crypto fashion.,King\'s Landing is stylish with crypto fashion.,Dragonstone is fierce with crypto fashion.,The Eyrie is elevated with crypto fashion.,Riverrun flows with crypto fashion.,Casterly Rock is solid with crypto fashion.,Highgarden is blooming with crypto fashion.,Sunspear is shining with crypto fashion.,The Iron Islands are strong with crypto fashion.,The Stormlands are powerful with crypto fashion.,The Vale is noble with crypto fashion.,The Riverlands are flowing with crypto fashion.,The North is cold but warm with crypto fashion.,The Reach is growing with crypto fashion.,Dorne is hot with crypto fashion.,The Westerlands are rich with crypto fashion.,The Crownlands are royal with crypto fashion.,The Stormlands are stormy but stylish with crypto fashion.' | split: ',' %}
+
+{% comment %} 
+  Get crypto emoji based on symbol
+  Usage: {% render 'meme-utils', action: 'crypto_emoji', symbol: 'BTC' %}
+{% endcomment %}
+{% if action == 'crypto_emoji' %}
+  {% case symbol %}
+    {% when 'BTC' or 'bitcoin' %}
+      ₿
+    {% when 'ETH' or 'ethereum' %}
+      Ξ
+    {% when 'DOGE' or 'dogecoin' %}
+      🐕
+    {% when 'ADA' or 'cardano' %}
+      ₳
+    {% when 'SOL' or 'solana' %}
+      ◎
+    {% when 'MATIC' or 'polygon' %}
+      🔺
+    {% when 'AVAX' or 'avalanche' %}
+      🔺
+    {% when 'DOT' or 'polkadot' %}
+      ●
+    {% when 'LINK' or 'chainlink' %}
+      🔗
+    {% when 'UNI' or 'uniswap' %}
+      🦄
+    {% else %}
+      🚀
+  {% endcase %}
+{% endif %}
+
+{% comment %} 
+  Get random crypto emoji
+  Usage: {% render 'meme-utils', action: 'random_crypto_emoji' %}
+{% endcomment %}
+{% if action == 'random_crypto_emoji' %}
+  {% assign crypto_emojis = '₿,Ξ,🐕,₳,◎,🔺,●,🔗,🦄,🚀,💎,🌙,🔥,💯,⚡,🎯,🎮,🎨,🎭,🎪,🎯,🎲,🎳,🎸,🎺,🎻,🥁,🎤,🎧,🎬,🎥,📺,📻,📱,💻,⌨️,🖥️,🖨️,💽,💾,💿,📀,🧮,🎰,🃏,🎴,🎯,🎲,🎳,🎮,🕹️,🎸,🎺,🎻,🥁,🎤,🎧,🎬,🎥,📺,📻,📱,💻,⌨️,🖥️,🖨️,💽,💾,💿,📀,🧮,🎰,🃏,🎴' | split: ',' %}
+  {% assign random_index = 'now' | date: '%S' | modulo: crypto_emojis.size %}
+  {{ crypto_emojis[random_index] }}
+{% endif %}
+
+{% comment %} 
+  Format wallet address for display
+  Usage: {% render 'meme-utils', action: 'format_wallet', address: wallet_address, length: 8 %}
+{% endcomment %}
+{% if action == 'format_wallet' %}
+  {% assign length = length | default: 6 %}
+  {% if address.size > length %}
+    {{ address | slice: 0, length | append: '...' | append: address | slice: -length, length }}
+  {% else %}
+    {{ address }}
+  {% endif %}
+{% endif %}
+
+{% comment %} 
+  Get price change indicator
+  Usage: {% render 'meme-utils', action: 'price_change', current: 50000, previous: 48000 %}
+{% endcomment %}
+{% if action == 'price_change' %}
+  {% assign change = current | minus: previous %}
+  {% assign change_percent = change | times: 100.0 | divided_by: previous %}
+  {% if change > 0 %}
+    <span class="text-green-500 flex items-center">
+      <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+      </svg>
+      +{{ change_percent | round: 2 }}%
+    </span>
+  {% elsif change < 0 %}
+    <span class="text-red-500 flex items-center">
+      <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l4.293-4.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+      </svg>
+      {{ change_percent | round: 2 }}%
+    </span>
+  {% else %}
+    <span class="text-text-secondary flex items-center">
+      <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+      </svg>
+      0.00%
+    </span>
+  {% endif %}
+{% endif %}
+
+{% comment %} 
+  Generate random meme-style username
+  Usage: {% render 'meme-utils', action: 'meme_username' %}
+{% endcomment %}
+{% if action == 'meme_username' %}
+  {% assign adjectives = 'Diamond,Golden,Silver,Platinum,Crypto,Blockchain,DeFi,NFT,Web3,HODL,Bull,Bear,Moon,Rocket,Dog,Laser,Eyes,Pepe,Chad,Virgin,Stonks,Giga,Chad,Wojak,Anon,DeGen,Ape,Diamond,Hands,Paper,Hands,WAGMI,GM,GN,Ser,Based,Cringe,Alpha,Beta,Sigma,Omega,Chad,Giga,Chad,Virgin,Boomer,Millennial,Gen,Z,Alpha,Millennial,Boomer,Coiner,Nocoiner,Normie,DeGen,Ape,Diamond,Hands,Paper,Hands,Whale,Dolphin,Shrimp,Crab,Fish,Shark,Orca,Leviathan,Behemoth,Colossus,Titan,Giant,Mammoth,Elephant,Rhino,Hippo,Giraffe,Zebra,Lion,Tiger,Bear,Wolf,Fox,Eagle,Hawk,Falcon,Owl,Raven,Crow,Parrot,Peacock,Flamingo,Penguin,Seal,Walrus,Octopus,Squid,Cuttlefish,Starfish,Jellyfish,Anemone,Coral,Seaweed,Kelp,Algae,Plankton,Whale,Shark,Dolphin,Porpoise,Manatee,Seal,Sea,Lion,Walrus,Otter,Beaver,Muskrat,Capybara,Chinchilla,Guinea,Pig,Hamster,Gerbil,Mouse,Rat,Squirrel,Chipmunk,Prairie,Dog,Groundhog,Marmot,Beaver,Nutria,Coypu,Capybara,Agouti,Paca,Acouchy,Paca,Agouti,Capybara,Chinchilla,Guinea,Pig,Hamster,Gerbil,Mouse,Rat,Squirrel,Chipmunk,Prairie,Dog,Groundhog,Marmot,Beaver,Nutria,Coypu,Capybara,Agouti,Paca,Acouchy,Paca,Agouti,Capybara,Chinchilla,Guinea,Pig,Hamster,Gerbil,Mouse,Rat,Squirrel,Chipmunk,Prairie,Dog,Groundhog,Marmot,Beaver,Nutria,Coypu,Capybara,Agouti,Paca,Acouchy,Paca,Agouti' | split: ',' %}
+  {% assign nouns = 'Trader,Holder,Buyer,Seller,Investor,Speculator,Gambler,Dealer,Broker,Agent,Representative,Ambassador,Champion,Warrior,Gladiator,Samurai,Ninja,Pirate,Viking,Knight,Paladin,Crusader,Monk,Priest,Shaman,Witch,Wizard,Mage,Sorcerer,Necromancer,Alchemist,Enchanter,Illusionist,Conjurer,Summoner,Elementalist,Geomancer,Pyromancer,Hydromancer,Aeromancer,Cryomancer,Electromancer,Chronomancer,Astromancer,Diviner,Oracle,Prophet,Seer,Medium,Channeler,Psychic,Telepath,Empath,Healer,Shaman,Druid,Ranger,Hunter,Tracker,Scout,Spy,Assassin,Thief,Rogue,Swashbuckler,Duelist,Fencer,Swordsman,Archer,Crossbowman,Gunslinger,Sharpshooter,Sniper,Commando,Marine,Soldier,Warrior,Gladiator,Champion,Hero,Villain,Antihero,Protagonist,Antagonist,Supporting,Character,Extra,Background,Character,NPC,Player,Character,Avatar,Persona,Identity,Self,Being,Entity,Creature,Monster,Beast,Animal,Human,Elf,Dwarf,Halfling,Gnome,Half,Orc,Tiefling,Dragonborn,Aasimar,Genasi,Goliath,Firbolg,Triton,Kenku,Aarakocra,Tabaxi,Lizardfolk,Tortle,Yuan,ti,Pureblood,Kobold,Goblin,Bugbear,Hobgoblin,Orc,Half,Orc,Minotaur,Centaur,Satyr,Faun,Dryad,Nymph,Sylph,Salamander,Undine,Gnome,Elf,Dwarf,Halfling,Human' | split: ',' %}
+  {% assign random_adj_index = 'now' | date: '%S' | modulo: adjectives.size %}
+  {% assign random_noun_index = 'now' | date: '%M' | modulo: nouns.size %}
+  {% assign random_number = 'now' | date: '%H' | modulo: 9999 %}
+  {{ adjectives[random_adj_index] }}{{ nouns[random_noun_index] }}{{ random_number }}
+{% endif %}
+
+{% comment %} 
+  Get trending hashtag
+  Usage: {% render 'meme-utils', action: 'trending_hashtag' %}
+{% endcomment %}
+{% if action == 'trending_hashtag' %}
+  {% assign hashtags = '#HODL,#WAGMI,#GM,#GN,#Ser,#Based,#Cringe,#Alpha,#Beta,#Sigma,#Omega,#Chad,#GigaChad,#Virgin,#Boomer,#Millennial,#GenZ,#AlphaMillennial,#BoomerCoiner,#NoCoiner,#Normie,#DeGen,#Ape,#DiamondHands,#PaperHands,#Whale,#Dolphin,#Shrimp,#Crab,#Fish,#Shark,#Orca,#Leviathan,#Behemoth,#Colossus,#Titan,#Giant,#Mammoth,#Elephant,#Rhino,#Hippo,#Giraffe,#Zebra,#Lion,#Tiger,#Bear,#Wolf,#Fox,#Eagle,#Hawk,#Falcon,#Owl,#Raven,#Crow,#Parrot,#Peacock,#Flamingo,#Penguin,#Seal,#Walrus,#Octopus,#Squid,#Cuttlefish,#Starfish,#Jellyfish,#Anemone,#Coral,#Seaweed,#Kelp,#Algae,#Plankton,#Whale,#Shark,#Dolphin,#Porpoise,#Manatee,#Seal,#SeaLion,#Walrus,#Otter,#Beaver,#Muskrat,#Capybara,#Chinchilla,#GuineaPig,#Hamster,#Gerbil,#Mouse,#Rat,#Squirrel,#Chipmunk,#PrairieDog,#Groundhog,#Marmot,#Beaver,#Nutria,#Coypu,#Capybara,#Agouti,#Paca,#Acouchy,#Paca,#Agouti,#Capybara,#Chinchilla,#GuineaPig,#Hamster,#Gerbil,#Mouse,#Rat,#Squirrel,#Chipmunk,#PrairieDog,#Groundhog,#Marmot,#Beaver,#Nutria,#Coypu,#Capybara,#Agouti,#Paca,#Acouchy,#Paca,#Agouti,#Capybara,#Chinchilla,#GuineaPig,#Hamster,#Gerbil,#Mouse,#Rat,#Squirrel,#Chipmunk,#PrairieDog,#Groundhog,#Marmot,#Beaver,#Nutria,#Coypu,#Capybara,#Agouti,#Paca,#Acouchy,#Paca,#Agouti' | split: ',' %}
+  {% assign random_hashtag_index = 'now' | date: '%S' | modulo: hashtags.size %}
+  {{ hashtags[random_hashtag_index] }}
+{% endif %}

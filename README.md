@@ -247,4 +247,4 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 
 **Made with ❤️ for the crypto community by MemeStyle Studio**
 
-*"Wear Your Crypto Identity"* 🚀
+*"Wear Your Crypto Identity"* 🚀# colorful-vibe-theme

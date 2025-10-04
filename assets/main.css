@@ -1,0 +1,458 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Custom CSS Variables */
+:root {
+  --primary-color: #00F6FF;
+  --accent-color: #F5B6FF;
+  --background-color: #0A0A0A;
+  --text-primary: #FFFFFF;
+  --text-secondary: #B3B3B3;
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background: var(--background-color) !important;
+}
+
+html {
+  background: var(--background-color) !important;
+  min-height: 100vh;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--background-color) !important;
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* Custom Components */
+@layer components {
+  .btn-primary {
+    @apply bg-gradient-to-r from-primary to-accent text-background font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 hover:scale-105 active:scale-95;
+  }
+  
+  .btn-secondary {
+    @apply border-2 border-primary text-primary font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:bg-primary hover:text-background hover:shadow-lg hover:shadow-primary/25;
+  }
+  
+  .card {
+    @apply bg-background-secondary rounded-xl p-6 border border-background-tertiary transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10;
+  }
+  
+  .text-glow {
+    @apply text-primary;
+    text-shadow: 0 0 10px rgba(0, 246, 255, 0.5);
+  }
+  
+  .neon-border {
+    @apply border-2 border-primary;
+    box-shadow: 0 0 10px rgba(0, 246, 255, 0.3);
+  }
+  
+  .cyber-grid {
+    background-image: 
+      linear-gradient(rgba(0, 246, 255, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 246, 255, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+}
+
+/* Animations */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-slide-in-up {
+  animation: slideInUp 0.6s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.6s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.6s ease-out;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* Parallax Effect */
+.parallax {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-color);
+}
+
+/* Loading States */
+.loading {
+  @apply animate-pulse;
+}
+
+/* Responsive Typography */
+@media (max-width: 640px) {
+  .text-responsive-xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+}
+
+@media (min-width: 641px) {
+  .text-responsive-xl {
+    font-size: 3rem;
+    line-height: 1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .text-responsive-xl {
+    font-size: 4rem;
+    line-height: 1;
+  }
+}
+
+/* Print-on-Demand Preview Styles */
+.preview-overlay {
+  position: relative;
+  overflow: hidden;
+}
+
+.preview-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 246, 255, 0.1);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.preview-overlay:hover::before {
+  opacity: 1;
+}
+
+/* Crypto Theme Elements */
+.crypto-bg {
+  background: linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 50%, #2A2A2A 100%);
+}
+
+.meme-glow {
+  box-shadow: 0 0 20px rgba(245, 182, 255, 0.3);
+}
+
+/* Utility Classes */
+.text-gradient {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.border-gradient {
+  border: 2px solid transparent;
+  background: linear-gradient(var(--background-color), var(--background-color)) padding-box,
+              linear-gradient(135deg, var(--primary-color), var(--accent-color)) border-box;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .mobile-padding {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .mobile-text-sm {
+    font-size: 0.875rem;
+  }
+  
+  .mobile-hidden {
+    display: none;
+  }
+}
+
+/* Performance Optimizations */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.lazy-load {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.lazy-load.loaded {
+  opacity: 1;
+}
+
+/* Full-width layout fixes */
+.container-full {
+  width: 100%;
+  max-width: none;
+}
+
+/* Ensure sections span full width */
+section, .section {
+  width: 100%;
+}
+
+/* Content centering for readability */
+.content-center {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Full-width backgrounds with centered content */
+.full-width-bg {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+
+/* Override any container constraints */
+.hero-banner,
+.featured-collection,
+.newsletter-signup,
+.meme-quote,
+.header,
+.footer {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+/* Ensure content containers are full width */
+.hero-banner > div,
+.featured-collection > div,
+.newsletter-signup > div,
+.meme-quote > div,
+.header > div,
+.footer > div {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+/* Force full viewport width */
+html {
+  width: 100vw !important;
+  overflow-x: hidden;
+}
+
+body {
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Ensure main content is full width */
+main {
+  width: 100% !important;
+  max-width: none !important;
+  background: var(--background-color) !important;
+}
+
+/* Force dark background everywhere */
+* {
+  background-color: transparent;
+}
+
+html, body, main, div, section, article, aside, nav, header, footer {
+  background-color: transparent;
+}
+
+/* Ensure entire viewport is dark */
+html::before,
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--background-color);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Ensure no white backgrounds */
+.shopify-section,
+.shopify-section-group,
+.page-width,
+.container,
+.wrapper {
+  background: transparent !important;
+}
+
+/* Ensure sections connect seamlessly */
+.shopify-section {
+  background: var(--background-color) !important;
+}
+
+/* Fix any potential gaps */
+.hero-banner,
+.featured-collection,
+.newsletter-signup,
+.meme-quote,
+.header,
+.footer {
+  background: var(--background-color) !important;
+}
+
+/* Ensure no white space between sections */
+.shopify-section + .shopify-section {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Additional animations for hero section */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes bounce-slow {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 2s infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Crypto ticker styles */
+.crypto-ticker {
+  background: linear-gradient(90deg, transparent, rgba(0, 246, 255, 0.1), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Responsive grid improvements */
+@media (max-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .hero-visual {
+    min-height: 300px;
+  }
+}

@@ -1,0 +1,286 @@
+{% comment %}
+  Featured Collection Section for MemeStyle Studio
+  Features: Dynamic collection selection, customizable layout, product cards with hover effects
+{% endcomment %}
+
+{% assign collection = collections[section.settings.collection] %}
+{% assign products = collection.products | limit: section.settings.products_to_show %}
+
+<div class="featured-collection py-16 lg:py-24 bg-background-secondary w-full" style="width: 100vw; margin-left: calc(-50vw + 50%);">
+  <div class="w-full px-4 sm:px-6 lg:px-8">
+    
+    {% comment %} Section Header {% endcomment %}
+    {% if section.settings.title != blank or section.settings.subtitle != blank %}
+      <div class="text-center mb-12 lg:mb-16">
+        {% if section.settings.title != blank %}
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold font-poppins mb-4">
+            <span class="text-gradient bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              {{ section.settings.title | escape }}
+            </span>
+          </h2>
+        {% endif %}
+        
+        {% if section.settings.subtitle != blank %}
+          <p class="text-lg sm:text-xl text-text-secondary max-w-2xl mx-auto font-inter">
+            {{ section.settings.subtitle | escape }}
+          </p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% comment %} Products Grid {% endcomment %}
+    {% if products.size > 0 %}
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-{{ section.settings.products_per_row }} gap-6 lg:gap-8">
+        {% for product in products %}
+          <div class="product-card group animate-slide-in-up" style="animation-delay: {{ forloop.index | times: 0.1 }}s;">
+            {% render 'product-card', 
+              product: product, 
+              show_vendor: section.settings.show_vendor,
+              show_quick_add: section.settings.show_quick_add,
+              show_product_type: section.settings.show_product_type,
+              image_ratio: section.settings.image_ratio
+            %}
+          </div>
+        {% endfor %}
+      </div>
+
+      {% comment %} View All Button {% endcomment %}
+      {% if section.settings.show_view_all and collection.url != blank %}
+        <div class="text-center mt-12">
+          <a href="{{ collection.url }}" 
+             class="btn-secondary inline-flex items-center gap-2 text-lg px-8 py-4 font-semibold">
+            <span>{{ section.settings.view_all_text | default: 'View All Products' }}</span>
+            <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </a>
+        </div>
+      {% endif %}
+    {% else %}
+      {% comment %} Enhanced Empty State {% endcomment %}
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-16">
+        
+        {% comment %} Left Side - Content {% endcomment %}
+        <div class="text-center lg:text-left">
+          <div class="text-8xl mb-6 animate-bounce-slow">🚀</div>
+          <h3 class="text-3xl lg:text-4xl font-bold text-gradient bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-4 font-poppins">
+            No Products Yet
+          </h3>
+          <p class="text-lg text-text-secondary mb-8 font-inter">
+            We're working on bringing you the dopest crypto-themed apparel!
+          </p>
+          {% if section.settings.collection == blank %}
+            <div class="bg-background-tertiary/50 rounded-lg p-6 border border-primary/20">
+              <p class="text-text-muted text-sm mb-4">
+                Please select a collection in the theme settings to display products here.
+              </p>
+              <div class="flex flex-wrap gap-2 justify-center lg:justify-start">
+                <span class="px-3 py-1 bg-primary/20 text-primary text-xs rounded-full">T-Shirts</span>
+                <span class="px-3 py-1 bg-accent/20 text-accent text-xs rounded-full">Tank Tops</span>
+                <span class="px-3 py-1 bg-primary/20 text-primary text-xs rounded-full">Sweatshirts</span>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+
+        {% comment %} Right Side - Visual Elements {% endcomment %}
+        <div class="relative">
+          <div class="relative h-80 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl overflow-hidden border border-primary/20">
+            
+            {% comment %} Animated Crypto Elements {% endcomment %}
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="relative">
+                <div class="w-32 h-32 bg-gradient-to-r from-primary/30 to-accent/30 rounded-full blur-2xl animate-pulse-slow"></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <div class="text-5xl animate-spin-slow">₿</div>
+                </div>
+              </div>
+            </div>
+
+            {% comment %} Floating Elements {% endcomment %}
+            <div class="absolute top-4 left-4 w-8 h-8 bg-primary/40 rounded-full animate-float" style="animation-delay: 0s;"></div>
+            <div class="absolute top-8 right-8 w-6 h-6 bg-accent/40 rounded-full animate-float" style="animation-delay: 1s;"></div>
+            <div class="absolute bottom-8 left-8 w-4 h-4 bg-primary/40 rounded-full animate-float" style="animation-delay: 2s;"></div>
+            <div class="absolute bottom-4 right-4 w-6 h-6 bg-accent/40 rounded-full animate-float" style="animation-delay: 3s;"></div>
+
+            {% comment %} Coming Soon Text {% endcomment %}
+            <div class="absolute bottom-4 left-4 right-4 bg-background-secondary/90 backdrop-blur-md rounded-lg p-3 border border-primary/20">
+              <div class="flex items-center justify-center space-x-2 text-sm">
+                <span class="text-primary animate-pulse">👕</span>
+                <span class="text-white font-semibold">New crypto apparel coming soon...</span>
+                <span class="text-accent animate-pulse">🔥</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
+    {% comment %} Collection Info {% endcomment %}
+    {% if section.settings.show_collection_info and collection != blank %}
+      <div class="mt-16 pt-8 border-t border-background-tertiary">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          {% if collection.metafields.custom.meme_theme != blank %}
+            <div>
+              <h4 class="text-lg font-semibold text-primary mb-2 font-poppins">Meme Theme</h4>
+              <p class="text-text-secondary font-inter">{{ collection.metafields.custom.meme_theme }}</p>
+            </div>
+          {% endif %}
+          
+          {% if collection.metafields.custom.drop_date != blank %}
+            <div>
+              <h4 class="text-lg font-semibold text-primary mb-2 font-poppins">Drop Date</h4>
+              <p class="text-text-secondary font-inter">{{ collection.metafields.custom.drop_date | date: '%B %d, %Y' }}</p>
+            </div>
+          {% endif %}
+          
+          <div>
+            <h4 class="text-lg font-semibold text-primary mb-2 font-poppins">Total Items</h4>
+            <p class="text-text-secondary font-inter">{{ collection.products_count }} Products</p>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Featured Collection",
+  "tag": "section",
+  "class": "featured-collection-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Featured Collection"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Discover our most popular crypto-inspired designs"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Select the collection to feature"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "label": "Number of products to show",
+      "default": 8
+    },
+    {
+      "type": "select",
+      "id": "products_per_row",
+      "label": "Products per row (desktop)",
+      "options": [
+        {
+          "value": "3",
+          "label": "3 products"
+        },
+        {
+          "value": "4",
+          "label": "4 products"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Product image ratio",
+      "options": [
+        {
+          "value": "square",
+          "label": "Square (1:1)"
+        },
+        {
+          "value": "portrait",
+          "label": "Portrait (3:4)"
+        },
+        {
+          "value": "landscape",
+          "label": "Landscape (4:3)"
+        }
+      ],
+      "default": "square"
+    },
+    {
+      "type": "header",
+      "content": "Product Cards"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_type",
+      "label": "Show product type",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quick_add",
+      "label": "Show quick add button",
+      "default": true,
+      "info": "Display 'Add to cart' button on product cards"
+    },
+    {
+      "type": "header",
+      "content": "Actions"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show 'View all' button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "View all button text",
+      "default": "View All Products"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_info",
+      "label": "Show collection information",
+      "default": true,
+      "info": "Display collection metadata at the bottom"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection",
+      "settings": {
+        "title": "Featured Collection",
+        "subtitle": "Discover our most popular crypto-inspired designs",
+        "products_to_show": 8,
+        "products_per_row": "4",
+        "show_quick_add": true,
+        "show_view_all": true,
+        "show_collection_info": true
+      }
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.primary_color | default: '#00F6FF' }}">
+    
+    {% # SEO Meta Tags %}
+    <title>
+      {% if template == 'index' %}
+        {{ shop.name }} - {{ settings.homepage_title | default: 'Wear Your Crypto Identity' }}
+      {% elsif template == 'product' %}
+        {{ product.title }} - {{ shop.name }}
+      {% elsif template == 'collection' %}
+        {{ collection.title }} - {{ shop.name }}
+      {% elsif template == 'page' %}
+        {{ page.title }} - {{ shop.name }}
+      {% else %}
+        {{ page_title }}{% if current_tags %} &ndash; {{ 'general.meta.tagged' | t }} "{{ current_tags | join: ', ' }}"{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t }} {{ current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+      {% endif %}
+    </title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    {% # Open Graph / Facebook %}
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ canonical_url }}">
+    <meta property="og:title" content="{{ page_title | escape }}">
+    <meta property="og:description" content="{{ page_description | escape }}">
+    <meta property="og:image" content="{{ settings.og_image | default: shop.brand.logo | image_url: width: 1200 }}">
+    <meta property="og:site_name" content="{{ shop.name }}">
+
+    {% # Twitter %}
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ canonical_url }}">
+    <meta property="twitter:title" content="{{ page_title | escape }}">
+    <meta property="twitter:description" content="{{ page_description | escape }}">
+    <meta property="twitter:image" content="{{ settings.og_image | default: shop.brand.logo | image_url: width: 1200 }}">
+
+    {% # Canonical URL %}
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {% # Favicon %}
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ settings.favicon | default: 'icon-account.svg' | asset_url }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ settings.apple_touch_icon | default: 'icon-account.svg' | asset_url }}">
+
+    {% # Preconnect to external domains %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    {% # Google Fonts %}
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    {% # TailwindCSS CDN (for development) %}
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                DEFAULT: '{{ settings.primary_color | default: "#00F6FF" }}',
+                dark: '{{ settings.primary_color_dark | default: "#00D4E6" }}',
+                light: '{{ settings.primary_color_light | default: "#33F8FF" }}'
+              },
+              accent: {
+                DEFAULT: '{{ settings.accent_color | default: "#F5B6FF" }}',
+                dark: '{{ settings.accent_color_dark | default: "#E894FF" }}',
+                light: '{{ settings.accent_color_light | default: "#F8C8FF" }}'
+              },
+              background: {
+                DEFAULT: '{{ settings.background_color | default: "#0A0A0A" }}',
+                secondary: '{{ settings.background_secondary | default: "#1A1A1A" }}',
+                tertiary: '{{ settings.background_tertiary | default: "#2A2A2A" }}'
+              }
+            },
+            fontFamily: {
+              'inter': ['Inter', 'system-ui', 'sans-serif'],
+              'poppins': ['Poppins', 'system-ui', 'sans-serif']
+            }
+          }
+        }
+      }
+    </script>
+
+    {% # Main CSS %}
+    {{ 'main.css' | asset_url | stylesheet_tag }}
+
+    {% # Critical CSS for above-the-fold content %}
+    {{ 'critical.css' | asset_url | stylesheet_tag: preload: true }}
+
+    {% # CSS Variables for theme customization %}
+    <style>
+      :root {
+        --primary-color: {{ settings.primary_color | default: '#00F6FF' }};
+        --accent-color: {{ settings.accent_color | default: '#F5B6FF' }};
+        --background-color: {{ settings.background_color | default: '#0A0A0A' }};
+        --text-primary: {{ settings.text_primary | default: '#FFFFFF' }};
+        --text-secondary: {{ settings.text_secondary | default: '#B3B3B3' }};
+        --font-primary: {{ settings.font_primary | default: 'Inter' }};
+        --font-secondary: {{ settings.font_secondary | default: 'Poppins' }};
+      }
+      
+      body {
+        font-family: var(--font-primary), system-ui, sans-serif;
+        background: var(--background-color);
+        color: var(--text-primary);
+      }
+    </style>
+
+    {% # Structured Data for SEO %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "{{ shop.name }}",
+      "description": "{{ shop.description | default: 'Custom streetwear for traders, holders & meme believers.' }}",
+      "url": "{{ shop.url }}",
+      "logo": "{{ settings.logo | default: shop.brand.logo | image_url: width: 300 }}",
+      "sameAs": [
+        {% if settings.social_twitter %}"{{ settings.social_twitter }}"{% if settings.social_instagram or settings.social_discord %},{% endif %}{% endif %}
+        {% if settings.social_instagram %}"{{ settings.social_instagram }}"{% if settings.social_discord %},{% endif %}{% endif %}
+        {% if settings.social_discord %}"{{ settings.social_discord }}"{% endif %}
+      ]
+      {% if template == 'product' %},
+      "@type": "Product",
+      "name": "{{ product.title | escape }}",
+      "description": "{{ product.description | strip_html | escape }}",
+      "image": "{{ product.featured_image | image_url: width: 800 }}",
+      "offers": {
+        "@type": "Offer",
+        "price": "{{ product.price | money_without_currency }}",
+        "priceCurrency": "{{ cart.currency.iso_code }}",
+        "availability": "{% if product.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}"
+      }
+      {% endif %}
+    }
+    </script>
+
+    {{ content_for_header }}
+
+    {% # Performance monitoring and analytics %}
+    {% if settings.google_analytics_id %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ settings.google_analytics_id }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '{{ settings.google_analytics_id }}');
+    </script>
+    {% endif %}
+  </head>
+
+  <body class="bg-background text-text-primary font-inter antialiased" style="background-color: var(--background-color) !important; min-height: 100vh;">
+    {% # Skip to content link for accessibility %}
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary text-background px-4 py-2 rounded-lg z-50">
+      Skip to main content
+    </a>
+
+    {% # Header %}
+    {% sections 'header-group' %}
+
+    {% # Main Content %}
+    <main id="main-content" role="main" style="background-color: var(--background-color) !important; min-height: 100vh;">
+      {{ content_for_layout }}
+    </main>
+
+    {% # Footer %}
+    {% sections 'footer-group' %}
+
+    {% # JavaScript %}
+    {{ 'main.js' | asset_url | script_tag }}
+    
+    {% # Cart drawer and AJAX functionality %}
+    <script>
+      // Global theme configuration
+      window.theme = {
+        primaryColor: '{{ settings.primary_color | default: "#00F6FF" }}',
+        accentColor: '{{ settings.accent_color | default: "#F5B6FF" }}',
+        currency: '{{ cart.currency.iso_code }}',
+        moneyFormat: '{{ shop.money_format }}',
+        locale: '{{ request.locale.iso_code }}'
+      };
+
+      // Initialize lazy loading
+      if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const img = entry.target;
+              img.src = img.dataset.src;
+              img.classList.remove('lazy-load');
+              img.classList.add('loaded');
+              observer.unobserve(img);
+            }
+          });
+        });
+
+        document.querySelectorAll('img[data-src]').forEach(img => {
+          imageObserver.observe(img);
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,197 @@
+{% comment %}
+  Meme Quote Section for MemeStyle Studio
+  Features: Random crypto/meme quotes with animations and customizable styling
+{% endcomment %}
+
+{% comment %} Define quote arrays {% endcomment %}
+{% assign crypto_quotes = 'Buy the dip. Wear the drip.,HODL strong, dress strong.,To the moon and back, in style.,Diamond hands need diamond threads.,When life gives you FUD, make fashion.,This is the way... to dress.,WAGMI - We All Gonna Make It (in style),The future is decentralized, the drip is centralized.,Not financial advice, but fashion advice.,Keep calm and HODL on... with style.,Mooning in comfort since 2009.,Crypto winter? More like fashion season.,When in doubt, zoom out... your outfit.,The only thing more volatile than crypto is my style.,Bull market or bear market, drip market is always up.,Smart contracts, smarter outfits.,DeFi your wardrobe, DeFi your style.,The blockchain is immutable, but your style is mutable.,Gas fees are high, but your drip is priceless.,Yield farming in the metaverse, drip farming in real life.,NFTs are cool, but drip is cooler.,Stake your claim to style.,Liquidity pools are deep, but your style runs deeper.,The merge is complete, now merge with style.,Ethereum 2.0, but your drip is already 3.0.,Layer 2 solutions for layer 2 fashion.,Cross-chain compatibility, cross-style versatility.,The DAO of fashion is decentralized.,Governance tokens for style governance.,Proof of stake, proof of drip.,Consensus mechanism: unanimous style approval.,Validator nodes validating your style choices.,Slashing conditions: no drip allowed.,Finality is guaranteed, style is eternal.,Block rewards: drip rewards.,Mining rewards: fashion rewards.,Hash rate of style is off the charts.,Difficulty adjustment: always adjusting to the latest trends.,Network congestion: style congestion.,Fork in the road? Fork in the style.,Hard fork, soft style.,Upgrade your wardrobe like you upgrade your node.,Sync your style with the network.,Peer-to-peer fashion recommendations.,Distributed ledger of style transactions.,Immutable style records.,Cryptographic proof of good taste.,Digital signatures of style approval.,Public key fashion, private key comfort.,Encryption: keeping your style secure.,Decryption: revealing your true style.,Hash functions: hashing out your look.,Merkle trees: organizing your wardrobe.,Bloom filters: filtering out bad fashion choices.,Consensus algorithms: consensus on your style.,Byzantine fault tolerance: fault-tolerant fashion.,CAP theorem: consistent, available, partitioned style.,ACID properties: atomic, consistent, isolated, durable drip.,Eventual consistency: eventually consistent style.,Strong consistency: strongly consistent fashion.,Weak consistency: weakly consistent but still stylish.,Linearizability: linearizable style choices.,Sequential consistency: sequentially consistent wardrobe.,Causal consistency: causally consistent fashion sense.,Monotonic reads: monotonically increasing style.,Monotonic writes: monotonically improving fashion.,Read your writes: read your style choices.,Write follows read: write follows your fashion sense.' | split: ',' %}
+
+{% assign meme_quotes = 'This is fine.,Distracted boyfriend meme but with fashion.,Drake pointing at bad fashion vs good fashion.,Woman yelling at cat but the cat is your old wardrobe.,Two buttons meme: buy more crypto vs buy more clothes.,Expanding brain meme: basic clothes, branded clothes, crypto-themed clothes, custom crypto clothes.,Stonks but for your style.,Change my mind: crypto fashion is the best fashion.,Big brain time: investing in both crypto and drip.,Galaxy brain: wearing crypto fashion while trading crypto.,This meme is sponsored by our drip.,When you realize fashion and crypto are both about confidence.,Template: insert your crypto fashion here.,NPC meme but you are the NPC wearing basic clothes.,Wojak crying because he sold his crypto-themed clothes too early.,Chad meme but Chad is wearing our collection.,Virgin basic fashion vs Chad crypto fashion.,Pepe approves of your fashion choices.,Doge is impressed by your drip.,This is the way to dress.,I have spoken about fashion.,Baby Yoda approves of your style.,Anime girl pointing at crypto fashion.,Disaster girl but the house is on fire because of your drip.,Hide the pain Harold but the pain is from not having crypto fashion.,Success kid but the success is from buying crypto fashion.,Bad luck Brian but the bad luck is wearing basic clothes.,Good guy Greg but Greg is wearing crypto fashion.,Scumbag Steve but Steve is judging your fashion choices.,Socially awesome awkward penguin but the penguin is wearing crypto fashion.,First world problems but the problem is too much crypto fashion to choose from.,Ancient aliens but the aliens are here for our crypto fashion.,Keep calm and carry on but carry on with crypto fashion.,Y U NO wear crypto fashion?,One does not simply wear basic clothes.,Winter is coming but your drip is staying.,You know nothing Jon Snow about crypto fashion.,Not today fashion police.,What is dead may never die but may wear crypto fashion.,The night is dark and full of terrors but your style is bright.,Valar morghulis but valar dripulis.,A Lannister always pays his debts with crypto fashion.,The North remembers good fashion.,The King in the North wears crypto fashion.,The Mother of Dragons wears crypto fashion.,The Unsullied wear crypto fashion.,The Dothraki wear crypto fashion.,The Night\'s Watch wears crypto fashion.,The Brotherhood without Banners wears crypto fashion.,The Faceless Men wear crypto fashion.,The Iron Bank invests in crypto fashion.,The Citadel studies crypto fashion.,The Wall protects against bad fashion.,Winterfell is warm with crypto fashion.,King\'s Landing is stylish with crypto fashion.,Dragonstone is fierce with crypto fashion.,The Eyrie is elevated with crypto fashion.,Riverrun flows with crypto fashion.,Casterly Rock is solid with crypto fashion.,Highgarden is blooming with crypto fashion.,Sunspear is shining with crypto fashion.,The Iron Islands are strong with crypto fashion.,The Stormlands are powerful with crypto fashion.,The Vale is noble with crypto fashion.,The Riverlands are flowing with crypto fashion.,The North is cold but warm with crypto fashion.,The Reach is growing with crypto fashion.,Dorne is hot with crypto fashion.,The Westerlands are rich with crypto fashion.,The Crownlands are royal with crypto fashion.,The Stormlands are stormy but stylish with crypto fashion.' | split: ',' %}
+
+{% comment %} Select random quote {% endcomment %}
+{% if section.settings.quote_type == 'crypto' %}
+  {% assign selected_quotes = crypto_quotes %}
+{% else %}
+  {% assign selected_quotes = meme_quotes %}
+{% endif %}
+
+{% assign quote_index = 'now' | date: '%S' | modulo: selected_quotes.size %}
+{% assign selected_quote = selected_quotes[quote_index] %}
+
+{% comment %} Override with custom quote if provided {% endcomment %}
+{% if section.settings.custom_quote != blank %}
+  {% assign selected_quote = section.settings.custom_quote %}
+{% endif %}
+
+<div class="meme-quote py-16 lg:py-24 bg-background relative overflow-hidden w-full" style="width: 100vw; margin-left: calc(-50vw + 50%);">
+  {% comment %} Background Pattern {% endcomment %}
+  <div class="absolute inset-0 opacity-5">
+    <div class="cyber-grid w-full h-full"></div>
+  </div>
+
+  {% comment %} Floating Elements {% endcomment %}
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-1/4 left-1/4 w-32 h-32 bg-primary/10 rounded-full blur-2xl animate-pulse-slow"></div>
+    <div class="absolute bottom-1/3 right-1/3 w-48 h-48 bg-accent/10 rounded-full blur-2xl animate-pulse-slow" style="animation-delay: 2s;"></div>
+    <div class="absolute top-1/2 right-1/4 w-24 h-24 bg-primary/20 rounded-full blur-xl animate-float"></div>
+  </div>
+
+  <div class="relative z-10 w-full px-4 sm:px-6 lg:px-8 text-center">
+    <div class="space-y-8">
+      {% comment %} Quote Icon {% endcomment %}
+      {% if section.settings.show_quote_icon %}
+        <div class="flex justify-center">
+          <div class="w-16 h-16 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center animate-glow">
+            <svg class="w-8 h-8 text-background" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+            </svg>
+          </div>
+        </div>
+      {% endif %}
+
+      {% comment %} Main Quote {% endcomment %}
+      <blockquote class="space-y-6">
+        <p class="text-xl sm:text-2xl lg:text-3xl font-medium font-poppins leading-relaxed text-text-primary">
+          <span class="text-gradient bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            "{{ selected_quote }}"
+          </span>
+        </p>
+
+        {% comment %} Quote Attribution {% endcomment %}
+        {% if section.settings.show_attribution %}
+          <footer class="flex items-center justify-center space-x-3">
+            {% if section.settings.attribution_name != blank %}
+              <cite class="text-lg font-semibold text-text-secondary font-inter not-italic">
+                — {{ section.settings.attribution_name }}
+              </cite>
+            {% else %}
+              <cite class="text-lg font-semibold text-text-secondary font-inter not-italic">
+                — {{ section.settings.quote_type | capitalize }} Community
+              </cite>
+            {% endif %}
+          </footer>
+        {% endif %}
+      </blockquote>
+
+      {% comment %} Emoji Reactions {% endcomment %}
+      {% if section.settings.show_reactions %}
+        <div class="flex justify-center space-x-4 pt-8">
+          <div class="flex space-x-2">
+            <span class="text-2xl animate-bounce" style="animation-delay: 0s;">🚀</span>
+            <span class="text-2xl animate-bounce" style="animation-delay: 0.2s;">💎</span>
+            <span class="text-2xl animate-bounce" style="animation-delay: 0.4s;">🌙</span>
+            <span class="text-2xl animate-bounce" style="animation-delay: 0.6s;">🔥</span>
+            <span class="text-2xl animate-bounce" style="animation-delay: 0.8s;">💯</span>
+          </div>
+        </div>
+      {% endif %}
+
+      {% comment %} Action Button {% endcomment %}
+      {% if section.settings.button_text != blank and section.settings.button_url != blank %}
+        <div class="pt-8">
+          <a href="{{ section.settings.button_url }}" 
+             class="btn-primary inline-flex items-center gap-2 text-lg px-8 py-4 font-semibold">
+            <span>{{ section.settings.button_text | escape }}</span>
+            <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Meme Quote",
+  "tag": "section",
+  "class": "meme-quote-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Quote Settings"
+    },
+    {
+      "type": "select",
+      "id": "quote_type",
+      "label": "Quote Type",
+      "options": [
+        {
+          "value": "crypto",
+          "label": "Crypto Quotes"
+        },
+        {
+          "value": "meme",
+          "label": "Meme Quotes"
+        }
+      ],
+      "default": "crypto",
+      "info": "Choose between crypto-themed or meme quotes"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_quote",
+      "label": "Custom Quote",
+      "info": "Leave blank to use random quotes from the selected type"
+    },
+    {
+      "type": "header",
+      "content": "Display Options"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quote_icon",
+      "label": "Show Quote Icon",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_attribution",
+      "label": "Show Attribution",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "attribution_name",
+      "label": "Attribution Name",
+      "info": "Leave blank to use default attribution"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_reactions",
+      "label": "Show Emoji Reactions",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Call to Action"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL",
+      "info": "Link for the call-to-action button"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Meme Quote",
+      "settings": {
+        "quote_type": "crypto",
+        "show_quote_icon": true,
+        "show_attribution": true,
+        "show_reactions": true,
+        "button_text": "Shop Now",
+        "button_url": "/collections"
+      }
+    }
+  ]
+}
+{% endschema %}

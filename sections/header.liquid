@@ -1,0 +1,289 @@
+{% comment %}
+  Header Section for MemeStyle Studio
+  Features: Logo, navigation, cart, search, and crypto-themed styling
+{% endcomment %}
+
+<header class="header bg-background-secondary border-b border-background-tertiary sticky top-0 z-50 backdrop-blur-md bg-background-secondary/95 w-full" style="width: 100vw; margin-left: calc(-50vw + 50%);">
+  <div class="w-full px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 lg:h-20">
+      
+      {% comment %} Mobile Menu Toggle {% endcomment %}
+      <div class="flex items-center lg:hidden">
+        <button 
+          type="button" 
+          class="mobile-menu-toggle text-text-secondary hover:text-primary transition-colors duration-300 p-2"
+          data-mobile-menu-toggle
+          aria-label="Toggle mobile menu"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+
+      {% comment %} Logo {% endcomment %}
+      <div class="flex items-center">
+        <a href="{{ routes.root_url }}" class="flex items-center space-x-3">
+          {% if settings.logo %}
+            {% render 'image', 
+              image: settings.logo,
+              class: 'h-8 w-auto lg:h-10',
+              alt: shop.name
+            %}
+          {% else %}
+            <div class="flex items-center space-x-2">
+              <div class="w-8 h-8 lg:w-10 lg:h-10 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center">
+                <span class="text-background font-bold text-lg lg:text-xl">M</span>
+              </div>
+              <span class="text-xl lg:text-2xl font-bold font-poppins">
+                <span class="text-gradient bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                  {{ settings.shop_name | default: shop.name }}
+                </span>
+              </span>
+            </div>
+          {% endif %}
+        </a>
+      </div>
+
+      {% comment %} Desktop Navigation {% endcomment %}
+      <nav class="hidden lg:flex items-center space-x-8">
+        {% for link in linklists[section.settings.main_menu].links %}
+          <a href="{{ link.url }}" 
+             class="text-text-secondary hover:text-primary transition-colors duration-300 font-medium font-inter relative group">
+            {{ link.title }}
+            
+            {% comment %} Hover indicator {% endcomment %}
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+          </a>
+        {% endfor %}
+      </nav>
+
+      {% comment %} Right Side Actions {% endcomment %}
+      <div class="flex items-center space-x-4">
+        
+        {% comment %} Search {% endcomment %}
+        {% if section.settings.show_search %}
+          <div class="relative hidden lg:block">
+            <button 
+              type="button" 
+              class="search-toggle text-text-secondary hover:text-primary transition-colors duration-300 p-2"
+              data-search-toggle
+              aria-label="Toggle search"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+            </button>
+            
+            {% comment %} Search Dropdown {% endcomment %}
+            <div class="absolute top-full right-0 mt-2 w-80 bg-background-secondary border border-background-tertiary rounded-lg shadow-lg hidden" data-search-dropdown>
+              <form class="p-4">
+                <div class="relative">
+                  <input 
+                    type="text" 
+                    placeholder="Search for crypto fashion..."
+                    class="w-full px-4 py-2 pl-10 bg-background border border-background-tertiary rounded-lg text-text-primary placeholder-text-muted focus:border-primary focus:outline-none font-inter"
+                    data-search-input
+                  >
+                  <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                  </svg>
+                </div>
+              </form>
+              
+              {% comment %} Search Results {% endcomment %}
+              <div class="max-h-64 overflow-y-auto border-t border-background-tertiary" data-search-results>
+                <!-- Search results will be populated here -->
+              </div>
+            </div>
+          </div>
+        {% endif %}
+
+        {% comment %} Account {% endcomment %}
+        {% if section.settings.show_account %}
+          <a href="{{ routes.account_url }}" 
+             class="text-text-secondary hover:text-primary transition-colors duration-300 p-2"
+             aria-label="Account">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+            </svg>
+          </a>
+        {% endif %}
+
+        {% comment %} Cart {% endcomment %}
+        {% if section.settings.show_cart %}
+          <a href="{{ routes.cart_url }}" 
+             class="relative text-text-secondary hover:text-primary transition-colors duration-300 p-2"
+             aria-label="Shopping cart">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5 6m0 0h12M17 19a2 2 0 100 4 2 2 0 000-4zM9 19a2 2 0 100 4 2 2 0 000-4z"></path>
+            </svg>
+            
+            {% comment %} Cart Count {% endcomment %}
+            <span class="absolute -top-1 -right-1 bg-primary text-background text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center" data-cart-count>
+              {{ cart.item_count }}
+            </span>
+          </a>
+        {% endif %}
+
+        {% comment %} Crypto Price Ticker {% endcomment %}
+        {% if section.settings.show_crypto_ticker %}
+          <div class="hidden xl:flex items-center space-x-4 text-sm">
+            <div class="crypto-price-ticker flex items-center space-x-2 text-text-secondary">
+              <!-- Crypto prices will be populated here -->
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    {% comment %} Mobile Menu {% endcomment %}
+    <div class="mobile-menu hidden lg:hidden border-t border-background-tertiary" data-mobile-menu>
+      <div class="py-4 space-y-4">
+        
+        {% comment %} Mobile Navigation {% endcomment %}
+        <nav class="space-y-2">
+          {% for link in linklists[section.settings.main_menu].links %}
+            <a href="{{ link.url }}" 
+               class="block px-4 py-2 text-text-secondary hover:text-primary hover:bg-background-tertiary transition-colors duration-300 font-medium font-inter">
+              {{ link.title }}
+            </a>
+          {% endfor %}
+        </nav>
+
+        {% comment %} Mobile Search {% endcomment %}
+        {% if section.settings.show_search %}
+          <div class="px-4">
+            <div class="relative">
+              <input 
+                type="text" 
+                placeholder="Search for crypto fashion..."
+                class="w-full px-4 py-2 pl-10 bg-background border border-background-tertiary rounded-lg text-text-primary placeholder-text-muted focus:border-primary focus:outline-none font-inter"
+                data-mobile-search-input
+              >
+              <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+            </div>
+          </div>
+        {% endif %}
+
+        {% comment %} Mobile Social Links {% endcomment %}
+        {% if section.settings.show_social_links %}
+          <div class="px-4 pt-4 border-t border-background-tertiary">
+            <div class="flex items-center justify-center space-x-4">
+              {% render 'social-links', style: 'minimal' %}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</header>
+
+{% comment %} Header Scripts {% endcomment %}
+<script>
+  // Mobile menu toggle
+  document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuToggle = document.querySelector('[data-mobile-menu-toggle]');
+    const mobileMenu = document.querySelector('[data-mobile-menu]');
+    
+    if (mobileMenuToggle && mobileMenu) {
+      mobileMenuToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        mobileMenuToggle.classList.toggle('active');
+      });
+    }
+
+    // Search toggle
+    const searchToggle = document.querySelector('[data-search-toggle]');
+    const searchDropdown = document.querySelector('[data-search-dropdown]');
+    
+    if (searchToggle && searchDropdown) {
+      searchToggle.addEventListener('click', () => {
+        searchDropdown.classList.toggle('hidden');
+      });
+      
+      // Close search when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!searchDropdown.contains(e.target) && !searchToggle.contains(e.target)) {
+          searchDropdown.classList.add('hidden');
+        }
+      });
+    }
+
+    // Update cart count
+    function updateCartCount() {
+      fetch('/cart.js')
+        .then(response => response.json())
+        .then(cart => {
+          const cartCount = document.querySelector('[data-cart-count]');
+          if (cartCount) {
+            cartCount.textContent = cart.item_count;
+          }
+        })
+        .catch(error => console.error('Error updating cart count:', error));
+    }
+
+    // Listen for cart updates
+    document.addEventListener('cart:updated', updateCartCount);
+    
+    // Initial cart count update
+    updateCartCount();
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Header",
+  "tag": "header",
+  "class": "header-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "main_menu",
+      "label": "Main Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "header",
+      "content": "Features"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show Search",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account",
+      "label": "Show Account Link",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cart",
+      "label": "Show Cart",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_crypto_ticker",
+      "label": "Show Crypto Price Ticker",
+      "default": true,
+      "info": "Display live crypto prices in header"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social_links",
+      "label": "Show Social Links in Mobile Menu",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

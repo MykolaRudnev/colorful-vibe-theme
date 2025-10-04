@@ -1,0 +1,322 @@
+{
+  "metafields": {
+    "products": [
+      {
+        "namespace": "custom",
+        "key": "text_overlay",
+        "name": "Custom Text Overlay",
+        "description": "Custom text to be displayed on the product",
+        "type": "single_line_text_field",
+        "validations": {
+          "max_length": 50
+        }
+      },
+      {
+        "namespace": "custom",
+        "key": "wallet_address",
+        "name": "Wallet Address",
+        "description": "Crypto wallet address associated with this product",
+        "type": "single_line_text_field",
+        "validations": {
+          "max_length": 100
+        }
+      },
+      {
+        "namespace": "custom",
+        "key": "qr_code",
+        "name": "QR Code",
+        "description": "QR code image for product verification",
+        "type": "file_reference"
+      },
+      {
+        "namespace": "custom",
+        "key": "personalization_options",
+        "name": "Personalization Options",
+        "description": "Available personalization options for this product",
+        "type": "json",
+        "validations": {
+          "json_schema": {
+            "type": "object",
+            "properties": {
+              "text_customization": {
+                "type": "boolean"
+              },
+              "color_options": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "size_variants": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "namespace": "custom",
+        "key": "crypto_theme",
+        "name": "Crypto Theme",
+        "description": "The cryptocurrency or meme theme of this product",
+        "type": "single_line_text_field",
+        "validations": {
+          "max_length": 30
+        }
+      },
+      {
+        "namespace": "custom",
+        "key": "drop_date",
+        "name": "Drop Date",
+        "description": "Release date for this product",
+        "type": "date"
+      },
+      {
+        "namespace": "custom",
+        "key": "limited_edition",
+        "name": "Limited Edition",
+        "description": "Whether this product is a limited edition",
+        "type": "boolean"
+      },
+      {
+        "namespace": "custom",
+        "key": "meme_reference",
+        "name": "Meme Reference",
+        "description": "Reference to the meme or crypto culture this product represents",
+        "type": "multi_line_text_field",
+        "validations": {
+          "max_length": 200
+        }
+      }
+    ],
+    "collections": [
+      {
+        "namespace": "custom",
+        "key": "meme_theme",
+        "name": "Meme Theme",
+        "description": "The overall theme of this collection",
+        "type": "single_line_text_field",
+        "validations": {
+          "max_length": 50
+        }
+      },
+      {
+        "namespace": "custom",
+        "key": "drop_date",
+        "name": "Drop Date",
+        "description": "Release date for this collection",
+        "type": "date"
+      },
+      {
+        "namespace": "custom",
+        "key": "crypto_focus",
+        "name": "Crypto Focus",
+        "description": "Primary cryptocurrency or blockchain this collection focuses on",
+        "type": "single_line_text_field",
+        "validations": {
+          "max_length": 30
+        }
+      },
+      {
+        "namespace": "custom",
+        "key": "collection_story",
+        "name": "Collection Story",
+        "description": "The story behind this collection",
+        "type": "multi_line_text_field",
+        "validations": {
+          "max_length": 500
+        }
+      },
+      {
+        "namespace": "custom",
+        "key": "rarity_level",
+        "name": "Rarity Level",
+        "description": "Rarity level of items in this collection",
+        "type": "single_line_text_field",
+        "validations": {
+          "choices": ["Common", "Uncommon", "Rare", "Epic", "Legendary"]
+        }
+      },
+      {
+        "namespace": "custom",
+        "key": "community_vote",
+        "name": "Community Vote",
+        "description": "Whether this collection was chosen by community vote",
+        "type": "boolean"
+      }
+    ],
+    "orders": [
+      {
+        "namespace": "custom",
+        "key": "crypto_payment_method",
+        "name": "Crypto Payment Method",
+        "description": "Cryptocurrency used for payment",
+        "type": "single_line_text_field",
+        "validations": {
+          "max_length": 20
+        }
+      },
+      {
+        "namespace": "custom",
+        "key": "wallet_address",
+        "name": "Customer Wallet Address",
+        "description": "Customer's wallet address for verification",
+        "type": "single_line_text_field",
+        "validations": {
+          "max_length": 100
+        }
+      },
+      {
+        "namespace": "custom",
+        "key": "personalization_details",
+        "name": "Personalization Details",
+        "description": "Details of product personalization",
+        "type": "json",
+        "validations": {
+          "json_schema": {
+            "type": "object",
+            "properties": {
+              "custom_text": {
+                "type": "string"
+              },
+              "color_choice": {
+                "type": "string"
+              },
+              "size_preference": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "customers": [
+      {
+        "namespace": "custom",
+        "key": "wallet_address",
+        "name": "Wallet Address",
+        "description": "Customer's primary wallet address",
+        "type": "single_line_text_field",
+        "validations": {
+          "max_length": 100
+        }
+      },
+      {
+        "namespace": "custom",
+        "key": "crypto_preferences",
+        "name": "Crypto Preferences",
+        "description": "Customer's cryptocurrency preferences",
+        "type": "json",
+        "validations": {
+          "json_schema": {
+            "type": "object",
+            "properties": {
+              "favorite_coins": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "meme_preferences": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "namespace": "custom",
+        "key": "community_role",
+        "name": "Community Role",
+        "description": "Customer's role in the crypto community",
+        "type": "single_line_text_field",
+        "validations": {
+          "choices": ["Trader", "HODLer", "DeFi User", "NFT Collector", "Miner", "Developer", "Newcomer"]
+        }
+      },
+      {
+        "namespace": "custom",
+        "key": "discord_username",
+        "name": "Discord Username",
+        "description": "Customer's Discord username",
+        "type": "single_line_text_field",
+        "validations": {
+          "max_length": 50
+        }
+      }
+    ]
+  },
+  "metafield_groups": [
+    {
+      "name": "Product Personalization",
+      "namespace": "custom",
+      "description": "Metafields for product customization and personalization",
+      "metafields": [
+        "text_overlay",
+        "personalization_options",
+        "crypto_theme",
+        "meme_reference"
+      ]
+    },
+    {
+      "name": "Crypto Information",
+      "namespace": "custom",
+      "description": "Cryptocurrency and blockchain related information",
+      "metafields": [
+        "wallet_address",
+        "qr_code",
+        "crypto_theme",
+        "crypto_focus"
+      ]
+    },
+    {
+      "name": "Collection Details",
+      "namespace": "custom",
+      "description": "Collection-specific information and metadata",
+      "metafields": [
+        "meme_theme",
+        "drop_date",
+        "collection_story",
+        "rarity_level",
+        "community_vote"
+      ]
+    },
+    {
+      "name": "Customer Profile",
+      "namespace": "custom",
+      "description": "Customer-specific information and preferences",
+      "metafields": [
+        "wallet_address",
+        "crypto_preferences",
+        "community_role",
+        "discord_username"
+      ]
+    }
+  ],
+  "instructions": {
+    "setup": [
+      "1. Use Shopify Admin API or Shopify CLI to create these metafields",
+      "2. Apply metafield groups to appropriate resource types",
+      "3. Configure metafield visibility and permissions",
+      "4. Test metafield functionality in theme templates"
+    ],
+    "usage": [
+      "1. Access metafields in Liquid templates using the metafields object",
+      "2. Use conditional logic to display metafield content",
+      "3. Implement form inputs for customer-facing metafields",
+      "4. Validate metafield data on form submission"
+    ],
+    "examples": {
+      "product_text_overlay": "{{ product.metafields.custom.text_overlay }}",
+      "collection_theme": "{{ collection.metafields.custom.meme_theme }}",
+      "customer_wallet": "{{ customer.metafields.custom.wallet_address }}",
+      "order_crypto_payment": "{{ order.metafields.custom.crypto_payment_method }}"
+    }
+  }
+}

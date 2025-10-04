@@ -1,0 +1,241 @@
+{% comment %}
+  Product Card Snippet for MemeStyle Studio
+  Features: Responsive design, hover effects, quick add functionality, and crypto-themed styling
+{% endcomment %}
+
+{% liquid
+  assign image_ratio = image_ratio | default: 'square'
+  assign show_vendor = show_vendor | default: false
+  assign show_quick_add = show_quick_add | default: true
+  assign show_product_type = show_product_type | default: false
+%}
+
+<div class="product-card group bg-background-secondary rounded-xl overflow-hidden border border-background-tertiary transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1">
+  
+  {% comment %} Product Image {% endcomment %}
+  <div class="relative overflow-hidden bg-background-tertiary">
+    {% if product.featured_image %}
+      <a href="{{ product.url }}" class="block">
+        {% case image_ratio %}
+          {% when 'square' %}
+            {% assign aspect_ratio = 'aspect-square' %}
+          {% when 'portrait' %}
+            {% assign aspect_ratio = 'aspect-[3/4]' %}
+          {% when 'landscape' %}
+            {% assign aspect_ratio = 'aspect-[4/3]' %}
+          {% else %}
+            {% assign aspect_ratio = 'aspect-square' %}
+        {% endcase %}
+        
+        <div class="{{ aspect_ratio }} relative">
+          {% render 'image', 
+            image: product.featured_image,
+            class: 'w-full h-full object-cover transition-transform duration-300 group-hover:scale-105',
+            alt: product.featured_image.alt | default: product.title,
+            loading: 'lazy'
+          %}
+          
+          {% comment %} Product Badges {% endcomment %}
+          <div class="absolute top-3 left-3 flex flex-col space-y-2">
+            {% if product.compare_at_price > product.price %}
+              <span class="bg-primary text-background text-xs font-semibold px-2 py-1 rounded-full">
+                Sale
+              </span>
+            {% endif %}
+            {% if product.available == false %}
+              <span class="bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
+                Sold Out
+              </span>
+            {% endif %}
+          </div>
+          
+          {% comment %} Quick Add Button {% endcomment %}
+          {% if show_quick_add and product.available %}
+            <div class="absolute inset-0 bg-background/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <button 
+                type="button"
+                class="btn-primary px-6 py-3 text-sm font-semibold"
+                data-product-id="{{ product.id }}"
+                data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+                onclick="addToCart(this)"
+              >
+                <span class="flex items-center space-x-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                  </svg>
+                  <span>Quick Add</span>
+                </span>
+              </button>
+            </div>
+          {% endif %}
+        </div>
+      </a>
+    {% else %}
+      <div class="aspect-square bg-background-tertiary flex items-center justify-center">
+        <svg class="w-16 h-16 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+        </svg>
+      </div>
+    {% endif %}
+  </div>
+
+  {% comment %} Product Information {% endcomment %}
+  <div class="p-4 space-y-3">
+    
+    {% comment %} Vendor {% endcomment %}
+    {% if show_vendor and product.vendor %}
+      <p class="text-xs font-semibold text-primary uppercase tracking-wide font-poppins">
+        {{ product.vendor }}
+      </p>
+    {% endif %}
+
+    {% comment %} Product Title {% endcomment %}
+    <h3 class="font-semibold text-text-primary group-hover:text-primary transition-colors duration-300 font-poppins">
+      <a href="{{ product.url }}" class="block">
+        {{ product.title }}
+      </a>
+    </h3>
+
+    {% comment %} Product Type {% endcomment %}
+    {% if show_product_type and product.type %}
+      <p class="text-xs text-text-muted uppercase tracking-wide font-inter">
+        {{ product.type }}
+      </p>
+    {% endif %}
+
+    {% comment %} Price {% endcomment %}
+    <div class="flex items-center space-x-2">
+      {% if product.compare_at_price > product.price %}
+        <span class="text-lg font-bold text-primary font-poppins">
+          {{ product.price | money }}
+        </span>
+        <span class="text-sm text-text-muted line-through font-inter">
+          {{ product.compare_at_price | money }}
+        </span>
+      {% else %}
+        <span class="text-lg font-bold text-text-primary font-poppins">
+          {{ product.price | money }}
+        </span>
+      {% endif %}
+    </div>
+
+    {% comment %} Product Options Preview {% endcomment %}
+    {% if product.variants.size > 1 %}
+      <div class="flex flex-wrap gap-1">
+        {% for variant in product.variants limit: 3 %}
+          {% if variant.option1 %}
+            <span class="text-xs px-2 py-1 bg-background-tertiary text-text-secondary rounded font-inter">
+              {{ variant.option1 }}
+            </span>
+          {% endif %}
+        {% endfor %}
+        {% if product.variants.size > 3 %}
+          <span class="text-xs px-2 py-1 bg-primary/10 text-primary rounded font-inter">
+            +{{ product.variants.size | minus: 3 }} more
+          </span>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% comment %} Product Metafields {% endcomment %}
+    {% if product.metafields.custom.wallet_address %}
+      <div class="text-xs text-text-muted font-inter">
+        <span class="font-semibold">Wallet:</span> {{ product.metafields.custom.wallet_address | truncate: 10 }}
+      </div>
+    {% endif %}
+
+    {% comment %} Customization Preview {% endcomment %}
+    {% if product.metafields.custom.text_overlay %}
+      <div class="text-xs text-primary font-inter bg-primary/10 px-2 py-1 rounded">
+        <span class="font-semibold">Custom Text:</span> {{ product.metafields.custom.text_overlay | truncate: 20 }}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% comment %} Add to Cart Script {% endcomment %}
+<script>
+  function addToCart(button) {
+    const productId = button.dataset.productId;
+    const variantId = button.dataset.variantId;
+    
+    if (!variantId) {
+      console.error('No variant ID found');
+      return;
+    }
+
+    // Show loading state
+    const originalText = button.innerHTML;
+    button.innerHTML = '<span class="animate-spin">⟳</span> Adding...';
+    button.disabled = true;
+
+    // Add to cart
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: variantId,
+        quantity: 1
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Success
+      button.innerHTML = '<span class="text-green-500">✓ Added!</span>';
+      
+      // Update cart count if element exists
+      const cartCount = document.querySelector('[data-cart-count]');
+      if (cartCount) {
+        cartCount.textContent = data.item_count || '0';
+      }
+      
+      // Show success message
+      showNotification('Product added to cart! 🚀', 'success');
+      
+      // Reset button after delay
+      setTimeout(() => {
+        button.innerHTML = originalText;
+        button.disabled = false;
+      }, 2000);
+    })
+    .catch(error => {
+      console.error('Error adding to cart:', error);
+      button.innerHTML = '<span class="text-red-500">✗ Error</span>';
+      showNotification('Failed to add product to cart', 'error');
+      
+      // Reset button after delay
+      setTimeout(() => {
+        button.innerHTML = originalText;
+        button.disabled = false;
+      }, 2000);
+    });
+  }
+
+  function showNotification(message, type = 'info') {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `fixed top-4 right-4 z-50 px-6 py-3 rounded-lg shadow-lg transition-all duration-300 transform translate-x-full ${
+      type === 'success' ? 'bg-green-500 text-white' : 
+      type === 'error' ? 'bg-red-500 text-white' : 
+      'bg-primary text-background'
+    }`;
+    notification.textContent = message;
+    
+    document.body.appendChild(notification);
+    
+    // Animate in
+    setTimeout(() => {
+      notification.classList.remove('translate-x-full');
+    }, 100);
+    
+    // Remove after delay
+    setTimeout(() => {
+      notification.classList.add('translate-x-full');
+      setTimeout(() => {
+        document.body.removeChild(notification);
+      }, 300);
+    }, 3000);
+  }
+</script>

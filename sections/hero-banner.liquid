@@ -1,0 +1,349 @@
+{% comment %}
+  Hero Banner Section for MemeStyle Studio
+  Features: Customizable title, subtitle, button, background image, and animations
+{% endcomment %}
+
+<div class="hero-banner relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-background-secondary to-background-tertiary w-full" style="width: 100vw; margin-left: calc(-50vw + 50%);">
+  {% comment %} Background Image {% endcomment %}
+  {% if section.settings.background_image %}
+    <div class="absolute inset-0 z-0">
+      {% render 'image', 
+        image: section.settings.background_image,
+        class: 'w-full h-full object-cover opacity-20',
+        loading: 'eager'
+      %}
+    </div>
+  {% endif %}
+
+  {% comment %} Animated Background Elements {% endcomment %}
+  <div class="absolute inset-0 z-0">
+    <div class="cyber-grid absolute inset-0 opacity-10"></div>
+    <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-pulse-slow"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 1s;"></div>
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-primary/20 rounded-full blur-2xl animate-float"></div>
+  </div>
+
+  {% comment %} Main Content {% endcomment %}
+  <div class="relative z-10 w-full px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center min-h-screen">
+      
+      {% comment %} Left Side Content {% endcomment %}
+      <div class="lg:col-span-5 space-y-8 text-center lg:text-left">
+      {% comment %} Main Headline {% endcomment %}
+      <div class="space-y-4 animate-slide-in-up">
+        {% if section.settings.title != blank %}
+          <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold font-poppins leading-tight">
+            <span class="text-gradient bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              {{ section.settings.title | escape }}
+            </span>
+          </h1>
+        {% else %}
+          <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold font-poppins leading-tight">
+            <span class="text-gradient bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              {{ settings.homepage_title | default: 'Wear Your Crypto Identity' }}
+            </span>
+          </h1>
+        {% endif %}
+
+        {% if section.settings.subtitle != blank %}
+          <p class="text-lg sm:text-xl lg:text-2xl text-text-secondary max-w-3xl mx-auto font-inter">
+            {{ section.settings.subtitle | escape }}
+          </p>
+        {% else %}
+          <p class="text-lg sm:text-xl lg:text-2xl text-text-secondary max-w-3xl mx-auto font-inter">
+            {{ settings.homepage_subtitle | default: 'Custom streetwear for traders, holders & meme believers.' }}
+          </p>
+        {% endif %}
+      </div>
+
+      {% comment %} Call-to-Action Buttons {% endcomment %}
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slide-in-up" style="animation-delay: 0.3s;">
+        {% if section.settings.button_text != blank and section.settings.button_url != blank %}
+          <a href="{{ section.settings.button_url }}" 
+             class="btn-primary text-lg px-8 py-4 font-semibold tracking-wide uppercase">
+            <span class="relative z-10">{{ section.settings.button_text | escape }}</span>
+          </a>
+        {% elsif section.settings.button_text != blank %}
+          <a href="{{ collections[settings.featured_collection].url | default: '/collections' }}" 
+             class="btn-primary text-lg px-8 py-4 font-semibold tracking-wide uppercase">
+            <span class="relative z-10">{{ section.settings.button_text | escape }}</span>
+          </a>
+        {% else %}
+          <a href="{{ collections[settings.featured_collection].url | default: '/collections' }}" 
+             class="btn-primary text-lg px-8 py-4 font-semibold tracking-wide uppercase">
+            <span class="relative z-10">{{ settings.cta_button_text | default: 'Explore Collections' }}</span>
+          </a>
+        {% endif %}
+
+        {% if section.settings.secondary_button_text != blank and section.settings.secondary_button_url != blank %}
+          <a href="{{ section.settings.secondary_button_url }}" 
+             class="btn-secondary text-lg px-8 py-4 font-semibold tracking-wide uppercase">
+            {{ section.settings.secondary_button_text | escape }}
+          </a>
+        {% endif %}
+      </div>
+
+      {% comment %} Featured Stats or Social Proof {% endcomment %}
+      {% if section.settings.show_stats %}
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-16 animate-slide-in-up" style="animation-delay: 0.6s;">
+          {% if section.settings.stat_1_text != blank %}
+            <div class="text-center">
+              <div class="text-3xl sm:text-4xl font-bold text-primary font-poppins">{{ section.settings.stat_1_number | default: '10K+' }}</div>
+              <div class="text-text-secondary font-inter">{{ section.settings.stat_1_text | escape }}</div>
+            </div>
+          {% endif %}
+          {% if section.settings.stat_2_text != blank %}
+            <div class="text-center">
+              <div class="text-3xl sm:text-4xl font-bold text-primary font-poppins">{{ section.settings.stat_2_number | default: '50+' }}</div>
+              <div class="text-text-secondary font-inter">{{ section.settings.stat_2_text | escape }}</div>
+            </div>
+          {% endif %}
+          {% if section.settings.stat_3_text != blank %}
+            <div class="text-center">
+              <div class="text-3xl sm:text-4xl font-bold text-primary font-poppins">{{ section.settings.stat_3_number | default: '24/7' }}</div>
+              <div class="text-text-secondary font-inter">{{ section.settings.stat_3_text | escape }}</div>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% comment %} Scroll Indicator {% endcomment %}
+      {% if section.settings.show_scroll_indicator %}
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce-slow lg:hidden">
+          <div class="w-6 h-10 border-2 border-primary rounded-full flex justify-center">
+            <div class="w-1 h-3 bg-primary rounded-full mt-2 animate-pulse"></div>
+          </div>
+        </div>
+      {% endif %}
+      </div>
+
+      {% comment %} Right Side Visual Elements {% endcomment %}
+      <div class="lg:col-span-7 relative">
+        <div class="relative h-full min-h-[500px] lg:min-h-[600px]">
+          
+          {% comment %} Crypto-themed Visual Elements {% endcomment %}
+          <div class="absolute inset-0 flex items-center justify-center">
+            
+            {% comment %} Main Crypto Symbol {% endcomment %}
+            <div class="relative">
+              <div class="w-64 h-64 lg:w-80 lg:h-80 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full blur-3xl animate-pulse-slow"></div>
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="text-8xl lg:text-9xl font-bold text-primary/30 animate-float">₿</div>
+              </div>
+            </div>
+
+            {% comment %} Orbiting Elements {% endcomment %}
+            <div class="absolute inset-0 animate-spin-slow" style="animation-duration: 20s;">
+              <div class="absolute top-8 left-1/2 transform -translate-x-1/2">
+                <div class="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center">
+                  <span class="text-2xl">🚀</span>
+                </div>
+              </div>
+              <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+                <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center">
+                  <span class="text-2xl">💎</span>
+                </div>
+              </div>
+              <div class="absolute left-8 top-1/2 transform -translate-y-1/2">
+                <div class="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center">
+                  <span class="text-2xl">🌙</span>
+                </div>
+              </div>
+              <div class="absolute right-8 top-1/2 transform -translate-y-1/2">
+                <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center">
+                  <span class="text-2xl">⚡</span>
+                </div>
+              </div>
+            </div>
+
+            {% comment %} Additional Floating Elements {% endcomment %}
+            <div class="absolute top-16 right-16 w-12 h-12 bg-gradient-to-r from-primary to-accent rounded-lg rotate-45 animate-float" style="animation-delay: 1s;"></div>
+            <div class="absolute bottom-16 left-16 w-8 h-8 bg-gradient-to-r from-accent to-primary rounded-full animate-float" style="animation-delay: 3s;"></div>
+            <div class="absolute top-1/2 right-8 w-6 h-6 bg-primary/40 rounded-full animate-pulse" style="animation-delay: 2s;"></div>
+            <div class="absolute bottom-1/3 right-1/3 w-4 h-4 bg-accent/40 rounded-full animate-pulse" style="animation-delay: 4s;"></div>
+          </div>
+
+          {% comment %} Product Categories Ticker {% endcomment %}
+          <div class="absolute bottom-8 left-0 right-0 bg-background-secondary/80 backdrop-blur-md rounded-lg p-4 border border-primary/20">
+            <div class="flex items-center justify-between text-sm">
+              <div class="flex items-center space-x-2">
+                <span class="text-primary">👕</span>
+                <span class="text-white font-semibold">T-Shirts</span>
+                <span class="text-green-400">New Designs</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="text-accent">🩳</span>
+                <span class="text-white font-semibold">Tank Tops</span>
+                <span class="text-green-400">Summer Ready</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="text-primary">🧥</span>
+                <span class="text-white font-semibold">Sweatshirts</span>
+                <span class="text-green-400">Cozy Vibes</span>
+              </div>
+            </div>
+          </div>
+
+          {% comment %} Scroll Indicator for Desktop {% endcomment %}
+          {% if section.settings.show_scroll_indicator %}
+            <div class="absolute bottom-8 right-8 animate-bounce-slow hidden lg:block">
+              <div class="w-6 h-10 border-2 border-primary rounded-full flex justify-center">
+                <div class="w-1 h-3 bg-primary rounded-full mt-2 animate-pulse"></div>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% comment %} Floating Crypto Elements {% endcomment %}
+  {% if section.settings.show_floating_elements %}
+    <div class="absolute inset-0 pointer-events-none overflow-hidden">
+      <div class="absolute top-1/4 left-8 text-primary/20 text-6xl animate-float" style="animation-delay: 0s;">₿</div>
+      <div class="absolute top-1/3 right-12 text-accent/20 text-4xl animate-float" style="animation-delay: 2s;">🚀</div>
+      <div class="absolute bottom-1/3 left-16 text-primary/20 text-5xl animate-float" style="animation-delay: 4s;">💎</div>
+      <div class="absolute bottom-1/4 right-8 text-accent/20 text-3xl animate-float" style="animation-delay: 1s;">🌙</div>
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "tag": "section",
+  "class": "hero-banner-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Main Title",
+      "default": "Wear Your Crypto Identity",
+      "info": "Leave blank to use theme settings default"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Custom streetwear for traders, holders & meme believers.",
+      "info": "Leave blank to use theme settings default"
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Primary Button Text",
+      "default": "Explore Collections"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Primary Button URL",
+      "info": "Leave blank to link to featured collection"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_text",
+      "label": "Secondary Button Text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_url",
+      "label": "Secondary Button URL"
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image",
+      "info": "Optional background image (will be overlaid with dark gradient)"
+    },
+    {
+      "type": "header",
+      "content": "Features"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_stats",
+      "label": "Show Statistics",
+      "default": false,
+      "info": "Display featured statistics below the CTA"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_number",
+      "label": "Statistic 1 Number",
+      "default": "10K+"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_text",
+      "label": "Statistic 1 Text",
+      "default": "Happy Customers"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_number",
+      "label": "Statistic 2 Number",
+      "default": "50+"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_text",
+      "label": "Statistic 2 Text",
+      "default": "Unique Designs"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_number",
+      "label": "Statistic 3 Number",
+      "default": "24/7"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_text",
+      "label": "Statistic 3 Text",
+      "default": "Support"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_scroll_indicator",
+      "label": "Show Scroll Indicator",
+      "default": true,
+      "info": "Display animated scroll indicator at bottom"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_floating_elements",
+      "label": "Show Floating Crypto Elements",
+      "default": true,
+      "info": "Display floating crypto symbols and emojis"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner",
+      "settings": {
+        "title": "Wear Your Crypto Identity",
+        "subtitle": "Custom streetwear for traders, holders & meme believers.",
+        "button_text": "Explore Collections",
+        "secondary_button_text": "Learn More",
+        "show_stats": true,
+        "show_scroll_indicator": true,
+        "show_floating_elements": true
+      }
+    }
+  ]
+}
+{% endschema %}
